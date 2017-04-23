@@ -18,27 +18,27 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
- */
+*/
 
 #include "BufferSerial.h"
 
 BufferSerial::BufferSerial(uint8_t *buffer, const uint16_t len)
 :_buffer(buffer),_len(len), _buffer_overflow(len>0), _pos(0)
 {
-	memset(_buffer, 0, _len);
+  memset(_buffer, 0, _len);
 }
 
 size_t BufferSerial::write(uint8_t byte) {
-	if (_pos >= _len) {
-		_buffer_overflow = true;
-		return 0;
-	}
-	_buffer[_pos] = byte;
-	++_pos;
-	return 1;
+  if (_pos >= _len) {
+    _buffer_overflow = true;
+    return 0;
+  }
+  _buffer[_pos] = byte;
+  ++_pos;
+  return 1;
 }
 
 void BufferSerial::flush() {
-	memset(_buffer, 0, _len);
-	_pos = 0;
+  memset(_buffer, 0, _len);
+  _pos = 0;
 }
